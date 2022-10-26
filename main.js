@@ -1,8 +1,11 @@
 //. main.js
 var fs = require( 'fs' );
 
+//. 環境変数
 var LIST_SIZE = 'LIST_SIZE' in process.env && process.env.LIST_SIZE ? parseInt( process.env.LIST_SIZE ) : 5;
 var filename = 'MERMAID' in process.env && process.env.MERMAID ? process.env.MERMAID : 'mermaid_sample.md';
+
+//. マーメイド定義ファイル読み取り
 var lines = fs.readFileSync( filename, 'UTF-8' );
 lines = lines.split( "\n" );
 
@@ -22,7 +25,7 @@ for( var i = 0; i < lines.length; i ++ ){
     var tmp2 = lines[i].substring( n1 + 3, n2 ).trim();
     var tmp3 = lines[i].substring( n2 + 4 ).trim();
 
-    //. id["name"]
+    //. id["name"] (from)
     var from_id = tmp1;
     var from_name = '';
     n1 = tmp1.indexOf( '["' );
@@ -35,7 +38,7 @@ for( var i = 0; i < lines.length; i ++ ){
       nodes.push( { id: from_id, name: from_name } );
     }
 
-    //. id["name"]
+    //. id["name"] (to)
     var to_id = tmp3;
     var to_name = '';
     n1 = tmp3.indexOf( '["' );
