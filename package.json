@@ -1,8 +1,9 @@
 {
-    "name": "web-template-bootstrap",
+    "name": "web-template",
     "version": "0.0.1",
     "scripts": {
         "start": "node app.js",
+        "reset": "rm app.js views/*.ejs public/js/*.js public/css/*.css public/img/*",
         "test": "mocha --exit api.spec.js"
     },
     "dependencies": {
@@ -13,10 +14,5 @@
     "repository": {},
     "engines": {
         "node": "14.x"
-    },
-    "devDependencies": {
-        "chai": "^4.3.6",
-        "mocha": "^10.0.0",
-        "supertest": "^6.2.4"
     }
 }

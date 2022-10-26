@@ -214,5 +214,6 @@ fs.copyFileSync( './templates/views/_links.ejs', './views/links.ejs' );
 
 fs.copyFileSync( './templates/js/template.js', './public/js/_main.js' );
 fs.copyFileSync( './templates/css/template.css', './public/css/_main.css' );
+fs.copyFileSync( './templates/img/icon.png', './public/img/icon.png' );
 
 

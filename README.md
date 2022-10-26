@@ -10,7 +10,6 @@
 
 - **マーメイド記法** で記述されたフローファイル（サンプル: mermaid_sample.md）を用意する
 
-
 ```
 ```mermaid_sample.md
 
@@ -34,9 +33,16 @@
 
 ```
 
+  - 一行を `A["nameA"] --"path"--> B["nameB"]` のフォーマットで記述する（原則これ以外の行は無視）
+    - `A`, `B`: ノードの ID
+    - `nameA`, `nameB`: ノードの名称（ページのタイトル）、省略した場合は ID
+    - `path`: B ノードへ行くためのパス
+  - `一覧ページ` と `詳細ページ` からなるページ
+
 - フローファイルを指定して main.js を実行
-  - `$ MERMAID=mermaid.md node main`
+  - `$ MERMAID=mermaid_sample.md node main`
   - `app.js`, `views/`, `public/` が作成される
+    - `.gitignore`, `package.json`, `README.md` は生成済み
 
 - app.js を実行
   - `$ npm install`
