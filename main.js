@@ -4,6 +4,7 @@ var fs = require( 'fs' );
 //. 環境変数
 var LIST_SIZE = 'LIST_SIZE' in process.env && process.env.LIST_SIZE ? parseInt( process.env.LIST_SIZE ) : 5;
 var filename = 'MERMAID' in process.env && process.env.MERMAID ? process.env.MERMAID : 'mermaid_sample.md';
+var base = 'BASE' in process.env && process.env.BASE ? process.env.BASE : 'bootstrap';
 
 //. マーメイド定義ファイル読み取り
 var lines = fs.readFileSync( filename, 'UTF-8' );
