@@ -1,0 +1,22 @@
+{
+    "name": "web-template-bootstrap",
+    "version": "0.0.1",
+    "scripts": {
+        "start": "node app.js",
+        "test": "mocha --exit api.spec.js"
+    },
+    "dependencies": {
+        "body-parser": "^1.20.0",
+        "ejs": "^3.1.8",
+        "express": "^4.18.1"
+    },
+    "repository": {},
+    "engines": {
+        "node": "14.x"
+    },
+    "devDependencies": {
+        "chai": "^4.3.6",
+        "mocha": "^10.0.0",
+        "supertest": "^6.2.4"
+    }
+}
