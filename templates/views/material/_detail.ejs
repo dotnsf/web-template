@@ -1,0 +1,31 @@
+<%- include('./header', {}) %>
+
+<link href="/css/<%= _name %>.css" rel="stylesheet"/>
+<script src="/js/<%= _name %>.js"></script>
+
+<title><%= _title %></title>
+</head>
+<body>
+
+<%- include('./navi', { _title: _title }) %>
+
+<div class="container" style="padding-top: 100px;">
+  <table class="table">
+    <tr>
+      <th>#</th>
+      <td><%= _id %></td>
+    </tr>
+    <tr>
+      <th>name</th>
+      <td><%= _record.name %></td>
+    </tr>
+    <tr>
+      <th>description</th>
+      <td><%= _record.description %></td>
+    </tr>
+  </table>
+</div>
+
+<%- include('./links', { _links: _links }) %>
+
+<%- include('./footer', {}) %>

@@ -1,0 +1,12 @@
+
+<div class="container">
+  <div class="mdc-touch-target-wrapper">
+<% for( var i = 0; i < _links.length; i ++ ){ %>
+  <button class="mdc-button mdc-button">
+    <span class="mdc-button__ripple"></span>
+    <span class="mdc-button__label">
+      <a href="<%= _links[i].path %>"><%= _links[i].name %></a>
+    </span>
+  </button>
+<% } %>
+</div>
