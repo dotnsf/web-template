@@ -1,13 +1,13 @@
 <%- include('./header', {}) %>
 
-<link href="/css/<%= name %>.css" rel="stylesheet"/>
-<script src="/js/<%= name %>list.js"></script>
+<link href="/css/<%= _name %>.css" rel="stylesheet"/>
+<script src="/js/<%= _name %>list.js"></script>
 
-<title><%= title %></title>
+<title><%= _title %></title>
 </head>
 <body>
 
-<%- include('./navi', { title: title }) %>
+<%- include('./navi', { _title: _title }) %>
 
 <div class="container" style="padding-top: 100px;">
   <table class="table table-bordered">
@@ -15,10 +15,10 @@
       <tr><th>#</th><th>name</th></tr>
     </thead>
     <tbody>
-<% for( var i = 0; i < records.length; i ++ ){ %>
+<% for( var i = 0; i < _records.length; i ++ ){ %>
       <tr>
-        <td><a href="/<%= name.substr( 0, name.length - 1 ) %>/<%= records[i].id %>"><%= records[i].id %></a></td>
-        <td><a href="/<%= name.substr( 0, name.length - 1 ) %>/<%= records[i].id %>"><%= records[i].name %></a></td>
+        <td><a href="/<%= _name.substr( 0, _name.length - 1 ) %>/<%= _records[i].id %>"><%= _records[i].id %></a></td>
+        <td><a href="/<%= _name.substr( 0, _name.length - 1 ) %>/<%= _records[i].id %>"><%= _records[i].name %></a></td>
       </tr>
 <% } %>
     </tbody>

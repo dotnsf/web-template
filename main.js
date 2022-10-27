@@ -166,40 +166,40 @@ function registeredName( arr, name ){
   return r;
 }
 
-function generateRoute( path, title, links, is_list ){
+function generateRoute( path, _title, _links, is_list ){
   var route = "app.get( '" + path + "', function( req, res ){\n";
   var list = [];
-  var record = null;
+  var _record = null;
   if( is_list ){
     //. 一覧ページ
-    var names = path.substring( 1, path.length );
-    var name = names.substring( 0, names.length - 1 );
+    var _names = path.substring( 1, path.length );
+    var _name = names.substring( 0, _names.length - 1 );
     for( var i = 0; i < LIST_SIZE; i ++ ){
-      var rec = { id: i, name: name + ' ' + i };
+      var rec = { id: i, name: _name + ' ' + i };
       list.push( rec );
     }
 
-    route += "  var records = " + JSON.stringify( list ) + ";\n\n"
-      + '  res.render( "' + names + '", { title: "' + title + '", name: "' + names + '", records: records, links: ' + JSON.stringify( links ) + " } );\n"
+    route += "  var _records = " + JSON.stringify( list ) + ";\n\n"
+      + '  res.render( "' + _names + '", { _title: "' + _title + '", _name: "' + _names + '", _records: _records, _links: ' + JSON.stringify( _links ) + " } );\n"
       + '});\n\n';
   }else if( path.endsWith( '/:id' ) ){
     //. 詳細ページ
     var tmp = path.split( '/' );
-    var name = tmp[1];
-    record = { name: name, description: name + ' ' + name };
+    var _name = tmp[1];
+    _record = { name: _name, description: _name + ' ' + _name };
 
-    route += "  var id = req.params.id;\n"
-      + "  var record = " + JSON.stringify( record ) + ";\n\n"
-      + '  res.render( "' + name + '", { id: id, title: "' + title + '", name: "' + name + '", record : record, links: ' + JSON.stringify( links ) + " } );\n"
+    route += "  var _id = req.params.id;\n"
+      + "  var _record = " + JSON.stringify( _record ) + ";\n\n"
+      + '  res.render( "' + _name + '", { _id: _id, _title: "' + _title + '", _name: "' + _name + '", _record : _record, _links: ' + JSON.stringify( _links ) + " } );\n"
       + "});\n\n";
   }else if( path == '/' ){
     //. トップページ
-    route += '  res.render( "index", { title: "' + title + '", name: "index", links: ' + JSON.stringify( links ) + " } );\n"
+    route += '  res.render( "index", { _title: "' + _title + '", _name: "index", _links: ' + JSON.stringify( _links ) + " } );\n"
       + "});\n\n";
   }else{
     //. それ以外のページ
-    var name = path.substring( 1, path.length );
-    route += '  res.render( "' + name + '", { title: "' + title + '", name: "' + name + '", links: ' + JSON.stringify( links ) + " } );\n"
+    var _name = path.substring( 1, path.length );
+    route += '  res.render( "' + _name + '", { _title: "' + _title + '", _name: "' + _name + '", _links: ' + JSON.stringify( _links ) + " } );\n"
       + "});\n\n";
   }
 

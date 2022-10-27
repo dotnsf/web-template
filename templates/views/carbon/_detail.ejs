@@ -1,13 +1,13 @@
 <%- include('./header', {}) %>
 
-<link href="/css/<%= name %>.css" rel="stylesheet"/>
-<script src="/js/<%= name %>.js"></script>
+<link href="/css/<%= _name %>.css" rel="stylesheet"/>
+<script src="/js/<%= _name %>.js"></script>
 
-<title><%= title %></title>
+<title><%= _title %></title>
 </head>
 <body>
 
-<%- include('./navi', { title: title }) %>
+<%- include('./navi', { _title: _title }) %>
 
 <div style="padding-top: 100px;">
   <bx-data-table>
@@ -17,21 +17,21 @@
       <bx-table-body>
         <bx-table-row>
           <bx-table-cell>#</bx-table-cell>
-          <bx-table-cell><%= id %></bx-table-cell>
+          <bx-table-cell><%= _id %></bx-table-cell>
         </bx-table-row>
         <bx-table-row>
           <bx-table-cell>name</bx-table-cell>
-          <bx-table-cell><%= record.name %></bx-table-cell>
+          <bx-table-cell><%= _record.name %></bx-table-cell>
         </bx-table-row>
         <bx-table-row>
           <bx-table-cell>description</bx-table-cell>
-          <bx-table-cell><%= record.description %></bx-table-cell>
+          <bx-table-cell><%= _record.description %></bx-table-cell>
         </bx-table-row>
       </bx-table-body>
     </bx-table>
   </bx-data-table>
 </div>
 
-<%- include('./links', { links: links }) %>
+<%- include('./links', { _links: _links }) %>
 
 <%- include('./footer', {}) %>

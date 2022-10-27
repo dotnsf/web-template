@@ -1,18 +1,18 @@
 <%- include('./header', {}) %>
 
-<link href="/css/<%= name %>.css" rel="stylesheet"/>
-<script src="/js/<%= name %>.js"></script>
+<link href="/css/<%= _name %>.css" rel="stylesheet"/>
+<script src="/js/<%= _name %>.js"></script>
 
-<title><%= title %></title>
+<title><%= _title %></title>
 </head>
 <body>
 
-<%- include('./navi', { title: title }) %>
+<%- include('./navi', { _title: _title }) %>
 
 <div class="container" style="padding-top: 100px;">
 Index
 </div>
 
-<%- include('./links', { links: links }) %>
+<%- include('./links', { _links: _links }) %>
 
 <%- include('./footer', {}) %>
