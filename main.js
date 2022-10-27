@@ -5,11 +5,18 @@ var fs = require( 'fs' );
 var LIST_SIZE = 'LIST_SIZE' in process.env && process.env.LIST_SIZE ? parseInt( process.env.LIST_SIZE ) : 5;
 var filename = 'MERMAID' in process.env && process.env.MERMAID ? process.env.MERMAID : 'mermaid_sample.md';
 var base = 'BASE' in process.env && process.env.BASE ? process.env.BASE : 'bootstrap';
+var web = 'web';
+
+//. フォルダ作成
+fs.mkdirSync( web + '/public' );
+fs.mkdirSync( web + '/public/js' );
+fs.mkdirSync( web + '/public/css' );
+fs.mkdirSync( web + '/public/img' );
+fs.mkdirSync( web + '/views' );
 
 //. マーメイド定義ファイル読み取り
 var lines = fs.readFileSync( filename, 'UTF-8' );
 lines = lines.split( "\n" );
-
 
 var nodes = [];   //. { id: 'A', name: 'トップページ' }
 var arrows = [];  //. { name: '/items', from: 'A', to: 'B' }
@@ -122,7 +129,23 @@ app += "\nvar port = process.env.PORT || 8080;\n"
   + "app.listen( port );\n"
   + "console.log( 'server starting on ' + port + ' ...' );\n\n";
 //console.log( app );
-fs.writeFileSync( './app.js', app );
+fs.writeFileSync( web + '/app.js', app );
+
+//. template.ejs
+fs.copyFileSync( './templates/views/_header.ejs', web + '/views/header.ejs' );
+fs.copyFileSync( './templates/views/_footer.ejs', web + '/views/footer.ejs' );
+fs.copyFileSync( './templates/views/_navi.ejs', web + '/views/navi.ejs' );
+fs.copyFileSync( './templates/views/_links.ejs', web + '/views/links.ejs' );
+
+//. static files
+fs.copyFileSync( './templates/js/template.js', web + '/public/js/_main.js' );
+fs.copyFileSync( './templates/css/template.css', web + '/public/css/_main.css' );
+fs.copyFileSync( './templates/img/icon.png', web + '/public/img/icon.png' );
+
+//. web package
+fs.copyFileSync( './templates/.gitignore', web + '/.gitignore' );
+fs.copyFileSync( './templates/package.json', web + '/package.json' );
+fs.copyFileSync( filename, web + '/README.md' );
 
 
 function registeredId( arr, id ){
@@ -205,19 +228,9 @@ function generateView( path, is_list ){
     template= '_else';
   }
 
-  fs.copyFileSync( './templates/views/' + template + '.ejs', './views/' + name + '.ejs' );
-  fs.copyFileSync( './templates/js/template.js', './public/js/' + name + '.js' );
-  fs.copyFileSync( './templates/css/template.css', './public/css/' + name + '.css' );
+  fs.copyFileSync( './templates/views/' + template + '.ejs', web + '/views/' + name + '.ejs' );
+  fs.copyFileSync( './templates/js/template.js', web + '/public/js/' + name + '.js' );
+  fs.copyFileSync( './templates/css/template.css', web + '/public/css/' + name + '.css' );
 }
-
-//. template.ejs
-fs.copyFileSync( './templates/views/_header.ejs', './views/header.ejs' );
-fs.copyFileSync( './templates/views/_footer.ejs', './views/footer.ejs' );
-fs.copyFileSync( './templates/views/_navi.ejs', './views/navi.ejs' );
-fs.copyFileSync( './templates/views/_links.ejs', './views/links.ejs' );
-
-fs.copyFileSync( './templates/js/template.js', './public/js/_main.js' );
-fs.copyFileSync( './templates/css/template.css', './public/css/_main.css' );
-fs.copyFileSync( './templates/img/icon.png', './public/img/icon.png' );
 
 

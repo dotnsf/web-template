@@ -49,10 +49,11 @@
 
 - フローファイルを指定して main.js を実行
   - `$ MERMAID=mermaid_sample.md node main`
-  - `app.js`, `views/`, `public/` が作成される
-    - `.gitignore`, `package.json`, `README.md` は生成済み
+  - `web/` フォルダ内に `app.js`, `.gitignore`, `package.json`, `README.md`, `views/`, `public/` が作成される
+    - `README.md` には元のマーメイドファイルの内容が含まれる
 
 - app.js を実行
+  - `$ cd web`
   - `$ npm install`
   - `$ npm start`
 
