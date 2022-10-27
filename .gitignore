@@ -1,7 +1,4 @@
 node_modules/
-views/
-public/
-app.js
 package-lock.json
 .env*
 .memo.txt

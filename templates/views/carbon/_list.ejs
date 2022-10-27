@@ -1,0 +1,33 @@
+<%- include('./header', {}) %>
+
+<link href="/css/<%= name %>.css" rel="stylesheet"/>
+<script src="/js/<%= name %>list.js"></script>
+
+<title><%= title %></title>
+</head>
+<body>
+
+<%- include('./navi', { title: title }) %>
+
+<div style="padding-top: 100px;">
+  <bx-data-table>
+    <bx-table>
+      <bx-table-head>
+        <bx-table-header-row>
+          <bx-table-header-cell>#</bx-table-header-cell>
+          <bx-table-header-cell>name</bx-table-header-cell>
+        </bx-table-header-row>
+      </bx-table-head>
+      <bx-table-body>
+<% for( var i = 0; i < records.length; i ++ ){ %>
+        <bx-table-row>
+          <bx-table-cell><a href="/<%= name.substr( 0, name.length - 1 ) %>/<%= records[i].id %>"><%= records[i].id %></a></bx-table-cell>
+          <bx-table-cell><a href="/<%= name.substr( 0, name.length - 1 ) %>/<%= records[i].id %>"><%= records[i].name %></a></bx-table-cell>
+        </bx-table-row>
+<% } %>
+      </bx-table-body>
+    </bx-table>
+  </bx-data-table>
+</div>
+
+<%- include('./footer', {}) %>

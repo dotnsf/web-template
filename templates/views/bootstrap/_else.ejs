@@ -1,0 +1,18 @@
+<%- include('./header', {}) %>
+
+<link href="/css/<%= name %>.css" rel="stylesheet"/>
+<script src="/js/<%= name %>.js"></script>
+
+<title><%= title %></title>
+</head>
+<body>
+
+<%- include('./navi', { title: title }) %>
+
+<div class="container" style="padding-top: 100px;">
+<%= title %>
+</div>
+
+<%- include('./links', { links: links }) %>
+
+<%- include('./footer', {}) %>

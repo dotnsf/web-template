@@ -1,0 +1,37 @@
+<%- include('./header', {}) %>
+
+<link href="/css/<%= name %>.css" rel="stylesheet"/>
+<script src="/js/<%= name %>.js"></script>
+
+<title><%= title %></title>
+</head>
+<body>
+
+<%- include('./navi', { title: title }) %>
+
+<div style="padding-top: 100px;">
+  <bx-data-table>
+    <bx-table>
+      <bx-table-head>
+      </bx-table-head>
+      <bx-table-body>
+        <bx-table-row>
+          <bx-table-cell>#</bx-table-cell>
+          <bx-table-cell><%= id %></bx-table-cell>
+        </bx-table-row>
+        <bx-table-row>
+          <bx-table-cell>name</bx-table-cell>
+          <bx-table-cell><%= record.name %></bx-table-cell>
+        </bx-table-row>
+        <bx-table-row>
+          <bx-table-cell>description</bx-table-cell>
+          <bx-table-cell><%= record.description %></bx-table-cell>
+        </bx-table-row>
+      </bx-table-body>
+    </bx-table>
+  </bx-data-table>
+</div>
+
+<%- include('./links', { links: links }) %>
+
+<%- include('./footer', {}) %>

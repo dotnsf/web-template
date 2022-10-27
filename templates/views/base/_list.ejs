@@ -1,0 +1,28 @@
+<%- include('./header', {}) %>
+
+<link href="/css/<%= name %>.css" rel="stylesheet"/>
+<script src="/js/<%= name %>list.js"></script>
+
+<title><%= title %></title>
+</head>
+<body>
+
+<%- include('./navi', { title: title }) %>
+
+<div style="padding-top: 100px;">
+  <table>
+    <thead>
+      <tr><th>#</th><th>name</th></tr>
+    </thead>
+    <tbody>
+<% for( var i = 0; i < records.length; i ++ ){ %>
+      <tr>
+        <td><a href="/<%= name.substr( 0, name.length - 1 ) %>/<%= records[i].id %>"><%= records[i].id %></a></td>
+        <td><a href="/<%= name.substr( 0, name.length - 1 ) %>/<%= records[i].id %>"><%= records[i].name %></a></td>
+      </tr>
+<% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('./footer', {}) %>

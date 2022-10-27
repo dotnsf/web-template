@@ -132,10 +132,10 @@ app += "\nvar port = process.env.PORT || 8080;\n"
 fs.writeFileSync( web + '/app.js', app );
 
 //. template.ejs
-fs.copyFileSync( './templates/views/_header.ejs', web + '/views/header.ejs' );
-fs.copyFileSync( './templates/views/_footer.ejs', web + '/views/footer.ejs' );
-fs.copyFileSync( './templates/views/_navi.ejs', web + '/views/navi.ejs' );
-fs.copyFileSync( './templates/views/_links.ejs', web + '/views/links.ejs' );
+fs.copyFileSync( './templates/views/' + base + '/_header.ejs', web + '/views/header.ejs' );
+fs.copyFileSync( './templates/views/' + base + '/_footer.ejs', web + '/views/footer.ejs' );
+fs.copyFileSync( './templates/views/' + base + '/_navi.ejs', web + '/views/navi.ejs' );
+fs.copyFileSync( './templates/views/' + base + '/_links.ejs', web + '/views/links.ejs' );
 
 //. static files
 fs.copyFileSync( './templates/js/template.js', web + '/public/js/_main.js' );
@@ -228,7 +228,7 @@ function generateView( path, is_list ){
     template= '_else';
   }
 
-  fs.copyFileSync( './templates/views/' + template + '.ejs', web + '/views/' + name + '.ejs' );
+  fs.copyFileSync( './templates/views/' + base + '/' + template + '.ejs', web + '/views/' + name + '.ejs' );
   fs.copyFileSync( './templates/js/template.js', web + '/public/js/' + name + '.js' );
   fs.copyFileSync( './templates/css/template.css', web + '/public/css/' + name + '.css' );
 }
