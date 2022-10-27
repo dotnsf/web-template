@@ -173,7 +173,7 @@ function generateRoute( path, _title, _links, is_list ){
   if( is_list ){
     //. 一覧ページ
     var _names = path.substring( 1, path.length );
-    var _name = names.substring( 0, _names.length - 1 );
+    var _name = _names.substring( 0, _names.length - 1 );
     for( var i = 0; i < LIST_SIZE; i ++ ){
       var rec = { id: i, name: _name + ' ' + i };
       list.push( rec );
