@@ -77,6 +77,13 @@ var app = "//. app.js\n"
   + "app.set( 'views', __dirname + '/views' );\n"
   + "app.set( 'view engine', 'ejs' );\n\n";
 
+var appname = filename;
+var tmp = filename.lastIndexOf( '.' );
+if( tmp > 0 ){
+  appname = filename.substr( 0, tmp );
+}
+app += "var appname = '" + appname + "';\n\n";
+
 for( var i = 0; i < nodes.length; i ++ ){
   var node = nodes[i];
   var path = null;
@@ -102,7 +109,6 @@ for( var i = 0; i < nodes.length; i ++ ){
   for( var j = 0; j < arrows.length; j ++ ){
     if( arrows[j].from == node.id ){
       if( ( ( path == '/' || !path.endsWith( 's' ) ) && arrows[j].from == nodes[i].id ) || ( path.endsWith( 's' ) && arrows[j].from == nodes[i].id && !nodes[i].id.startsWith( arrows[j].to ) ) ){
-      //if( /*path != '/' &&*/ !arrows[j].name.startsWith( path.substring( 0, path.length - 1 ) ) ){
         var link_id = arrows[j].to;
         var link_name = link_id;
         for( var k = 0; k < nodes.length; k ++ ){
@@ -117,7 +123,7 @@ for( var i = 0; i < nodes.length; i ++ ){
   }
 
   //. app.js
-  var route = generateRoute( path, node.name, links, is_list );
+  var route = generateRoute( path, node.name, links, is_list, appname );
   //console.log( route );
   app += route;
 
@@ -166,7 +172,7 @@ function registeredName( arr, name ){
   return r;
 }
 
-function generateRoute( path, _title, _links, is_list ){
+function generateRoute( path, _title, _links, is_list, appname ){
   var route = "app.get( '" + path + "', function( req, res ){\n";
   var list = [];
   var _record = null;
@@ -179,8 +185,8 @@ function generateRoute( path, _title, _links, is_list ){
       list.push( rec );
     }
 
-    route += "  var _records = " + JSON.stringify( list ) + ";\n\n"
-      + '  res.render( "' + _names + '", { _title: "' + _title + '", _name: "' + _names + '", _records: _records, _links: ' + JSON.stringify( _links ) + " } );\n"
+    route += "  var _records = " + stringifyArray( list ) + ";\n\n"
+      + '  res.render( "' + _names + '", { _title: "' + _title + '", _name: "' + _names + '", _records: _records, _links: ' + stringifyArray( _links ) + ', _appname: "' + appname + '" } );\n'
       + '});\n\n';
   }else if( path.endsWith( '/:id' ) ){
     //. 詳細ページ
@@ -190,16 +196,16 @@ function generateRoute( path, _title, _links, is_list ){
 
     route += "  var _id = req.params.id;\n"
       + "  var _record = " + JSON.stringify( _record ) + ";\n\n"
-      + '  res.render( "' + _name + '", { _id: _id, _title: "' + _title + '", _name: "' + _name + '", _record : _record, _links: ' + JSON.stringify( _links ) + " } );\n"
+      + '  res.render( "' + _name + '", { _id: _id, _title: "' + _title + '", _name: "' + _name + '", _record : _record, _links: ' + stringifyArray( _links ) + ', _appname: "' + appname + '" } );\n'
       + "});\n\n";
   }else if( path == '/' ){
     //. トップページ
-    route += '  res.render( "index", { _title: "' + _title + '", _name: "index", _links: ' + JSON.stringify( _links ) + " } );\n"
+    route += '  res.render( "index", { _title: "' + _title + '", _name: "index", _links: ' + stringifyArray( _links ) + ', _appname: "' + appname + '" } );\n'
       + "});\n\n";
   }else{
     //. それ以外のページ
     var _name = path.substring( 1, path.length );
-    route += '  res.render( "' + _name + '", { _title: "' + _title + '", _name: "' + _name + '", _links: ' + JSON.stringify( _links ) + " } );\n"
+    route += '  res.render( "' + _name + '", { _title: "' + _title + '", _name: "' + _name + '", _links: ' + stringifyArray( _links ) + ', _appname: "' + appname + '" } );\n'
       + "});\n\n";
   }
 
@@ -233,4 +239,16 @@ function generateView( path, is_list ){
   fs.copyFileSync( './templates/css/template.css', web + '/public/css/' + name + '.css' );
 }
 
+function stringifyArray( arr ){
+  var str = "[\n";
+  for( var i = 0; i < arr.length; i ++ ){
+    str += JSON.stringify( arr[i] );
+    if( i < arr.length - 1 ){
+      str += ",";
+    }
+    str += "\n";
+  }
+  str += "]\n";
 
+  return str;
+}

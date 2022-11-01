@@ -3,11 +3,11 @@
 <link href="/css/<%= _name %>.css" rel="stylesheet"/>
 <script src="/js/<%= _name %>.js"></script>
 
-<title><%= _title %></title>
+<title><%= _appname + " - " + _title %></title>
 </head>
 <body>
 
-<%- include('./navi', { _title: _title }) %>
+<%- include('./navi', { _appname: _appname, _title: _title }) %>
 
 <div style="padding-top: 100px;">
   <bx-data-table>
