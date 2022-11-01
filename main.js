@@ -8,11 +8,11 @@ var base = 'BASE' in process.env && process.env.BASE ? process.env.BASE : 'boots
 var web = 'web';
 
 //. フォルダ作成
-fs.mkdirSync( web + '/public' );
-fs.mkdirSync( web + '/public/js' );
-fs.mkdirSync( web + '/public/css' );
-fs.mkdirSync( web + '/public/img' );
-fs.mkdirSync( web + '/views' );
+mkdirIfNotExisted( web + '/public' );
+mkdirIfNotExisted( web + '/public/js' );
+mkdirIfNotExisted( web + '/public/css' );
+mkdirIfNotExisted( web + '/public/img' );
+mkdirIfNotExisted( web + '/views' );
 
 //. マーメイド定義ファイル読み取り
 var lines = fs.readFileSync( filename, 'UTF-8' );
@@ -135,23 +135,23 @@ app += "\nvar port = process.env.PORT || 8080;\n"
   + "app.listen( port );\n"
   + "console.log( 'server starting on ' + port + ' ...' );\n\n";
 //console.log( app );
-fs.writeFileSync( web + '/app.js', app );
+ignoreException( fs.writeFileSync( web + '/app.js', app ) );
 
 //. template.ejs
-fs.copyFileSync( './templates/views/' + base + '/_header.ejs', web + '/views/header.ejs' );
-fs.copyFileSync( './templates/views/' + base + '/_footer.ejs', web + '/views/footer.ejs' );
-fs.copyFileSync( './templates/views/' + base + '/_navi.ejs', web + '/views/navi.ejs' );
-fs.copyFileSync( './templates/views/' + base + '/_links.ejs', web + '/views/links.ejs' );
+ignoreException( fs.copyFileSync( './templates/views/' + base + '/_header.ejs', web + '/views/header.ejs' ) );
+ignoreException( fs.copyFileSync( './templates/views/' + base + '/_footer.ejs', web + '/views/footer.ejs' ) );
+ignoreException( fs.copyFileSync( './templates/views/' + base + '/_navi.ejs', web + '/views/navi.ejs' ) );
+ignoreException( fs.copyFileSync( './templates/views/' + base + '/_links.ejs', web + '/views/links.ejs' ) );
 
 //. static files
-fs.copyFileSync( './templates/js/template.js', web + '/public/js/_main.js' );
-fs.copyFileSync( './templates/css/template.css', web + '/public/css/_main.css' );
-fs.copyFileSync( './templates/img/icon.png', web + '/public/img/icon.png' );
+ignoreException( fs.copyFileSync( './templates/js/template.js', web + '/public/js/_main.js' ) );
+ignoreException( fs.copyFileSync( './templates/css/template.css', web + '/public/css/_main.css' ) );
+ignoreException( fs.copyFileSync( './templates/img/icon.png', web + '/public/img/icon.png' ) );
 
 //. web package
-fs.copyFileSync( './templates/.gitignore', web + '/.gitignore' );
-fs.copyFileSync( './templates/package.json', web + '/package.json' );
-fs.copyFileSync( filename, web + '/README.md' );
+ignoreException( fs.copyFileSync( './templates/.gitignore', web + '/.gitignore' ) );
+ignoreException( fs.copyFileSync( './templates/package.json', web + '/package.json' ) );
+ignoreException( fs.copyFileSync( filename, web + '/README.md' ) );
 
 
 function registeredId( arr, id ){
@@ -234,9 +234,9 @@ function generateView( path, is_list ){
     template= '_else';
   }
 
-  fs.copyFileSync( './templates/views/' + base + '/' + template + '.ejs', web + '/views/' + name + '.ejs' );
-  fs.copyFileSync( './templates/js/template.js', web + '/public/js/' + name + '.js' );
-  fs.copyFileSync( './templates/css/template.css', web + '/public/css/' + name + '.css' );
+  ignoreException( fs.copyFileSync( './templates/views/' + base + '/' + template + '.ejs', web + '/views/' + name + '.ejs' ) );
+  ignoreException( fs.copyFileSync( './templates/js/template.js', web + '/public/js/' + name + '.js' ) );
+  ignoreException( fs.copyFileSync( './templates/css/template.css', web + '/public/css/' + name + '.css' ) );
 }
 
 function stringifyArray( arr ){
@@ -251,4 +251,18 @@ function stringifyArray( arr ){
   str += "]\n";
 
   return str;
+}
+
+//. #5
+function ignoreException( func ){
+  try{
+    func;
+  }catch( e ){
+  }
+}
+
+function mkdirIfNotExisted( dir ){
+  if( !fs.existsSync( dir ) ){
+    fs.mkdirSync( dir );
+  }
 }

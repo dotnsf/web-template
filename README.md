@@ -65,6 +65,23 @@
 - 一度生成したファイルをリセットして、生成前の状態に戻すには `$ npm run reset` を実行
 
 
+## Parameters
+
+実行時に以下の**環境変数**を指定する：
+
+- `MERMAID`: マーメイドファイル名（必須）
+
+- `LIST_SIZE`: 一覧ページに表示するサンプル数（デフォルト＝5）
+
+- `BASE`: EJS ファイルのベースとなる CSS テンプレート（`base`, `bootstrap`, `carbon`, `material` のいずれかを選択。デフォルト＝`bootstrap`）
+
+
+また、**生成されたアプリケーションの実行時**に以下の**環境変数**を指定する：
+
+- `PORT`: ウェブアプリケーションの待ち受けポート番号（デフォルト＝8080）
+
+
+
 ## Licensing
 
 This code is licensed under MIT.
