@@ -100,6 +100,7 @@ if( tmp > 0 ){
   appname = filename.substr( 0, tmp );
 }
 
+//. swagger
 var swagger = "swagger: '2.0'\n"
   + "info:\n"
   + "  description: " + appname + " REST API ドキュメント\n"
@@ -113,6 +114,9 @@ var swagger = "swagger: '2.0'\n"
 var swagger_tags = "tags:\n";
 var swagger_paths = "paths:\n";
 var swagger_defs = "definitions:\n";
+
+//. ddl
+var ddl = "";
 
 for( var i = 0; i < nodes.length; i ++ ){
   var node = nodes[i];
@@ -147,23 +151,33 @@ for( var i = 0; i < nodes.length; i ++ ){
     swagger_paths += swagger_path;
     var swagger_def = generateSwaggerDef( path );
     swagger_defs += swagger_def;
+
+    //. DDL
+    var table_ddl =  generateTableDDL( path );
+    ddl += table_ddl;
   }
 }
 
+//. app.js
 app += "\nvar port = process.env.PORT || 8081;\n"
   + "app.listen( port );\n"
   + "console.log( 'server starting on ' + port + ' ...' );\n\n";
 ignoreException( fs.writeFileSync( out + '/app.js', app ) );
 
+//. DDL
+ignoreException( fs.writeFileSync( out + '/' + appname + ".ddl", ddl ) );
+
+//. db.js
 db += "\nmodule.exports = api;\n\n";
 ignoreException( fs.writeFileSync( out + '/api/db.js', db ) );
 
+//. swagger.yaml
 swagger += swagger_tags;
 swagger += swagger_paths;
 swagger += swagger_defs;
 ignoreException( fs.writeFileSync( out + '/public/_doc/swagger.yaml', swagger ) );
 
-//. Swagger
+//. Swagger files
 ignoreException( fs.copyFileSync( './templates/_doc/favicon-16x16.png', out + '/public/_doc/favicon-16x16.png' ) );
 ignoreException( fs.copyFileSync( './templates/_doc/favicon-32x32.png', out + '/public/_doc/favicon-32x32.png' ) );
 ignoreException( fs.copyFileSync( './templates/_doc/index.html', out + '/public/_doc/index.html' ) );
@@ -205,6 +219,17 @@ function registeredName( arr, name ){
 function capitalize( str ){
 	if( typeof str !== 'string' || !str ) return str;
 	return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+function generateTableDDL( path ){
+  var prural = path.substr( 1 );
+  var singular = prural.substr( 0, prural.length - 1 );
+
+  var table_ddl = "/* " + prural + " */\n"
+    + "drop table " + prural + ";\n"
+    + "create table if not exists " + prural + " ( id varchar(50) not null primary key, name text default '', created bigint default 0, updated bigint default 0 );\n";
+
+  return table_ddl;
 }
 
 function generateSwaggerTag( path ){
