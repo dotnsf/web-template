@@ -1,9 +1,9 @@
-# Web tepmplate Bootstrap
+# Web tepmplate
 
 
 ## Overview
 
-**Bootstrap** ベースのウェブアプリケーション・テンプレート
+**Bootstrap** ベースのウェブアプリケーション・テンプレート、および API サーバー・テンプレート
 
 
 ## Usage
@@ -47,6 +47,8 @@
     - 例えば上の例だと、ノードの一覧という意味では最下行は不要（Top も Login も登場済み）
     - でも Login へ向かうパスがないため Login ページを表示するためのパスが未定義。そのため最下行を追加する必要がある
 
+### Usage for web-app
+
 - フローファイルを指定して web.js を実行
   - `$ MERMAID=mermaid_sample.md node web`
   - `web/` フォルダ内に `app.js`, `.gitignore`, `package.json`, `README.md`, `views/`, `public/` が作成される
@@ -62,10 +64,32 @@
 
 - 必要に応じて生成されたファイル（`app.js`, `/views/`, `/public/`）をカスタマイズ
 
-- 一度生成したファイルをリセットして、生成前の状態に戻すには `$ npm run reset` を実行
+- 一度生成したファイルをリセットして、生成前の状態に戻すには `$ npm run reset-web` を実行
+
+
+### Usage for api
+
+- フローファイルと `DATABASE_URL` を指定して api.js を実行
+  - `$ MERMAID=mermaid_sample.md DATABASE_URL=postgres://user:pass@localhost:5432/db node api`
+  - `api/` フォルダ内に `app.js`, `.gitignore`, `package.json`, `README.md`, `api/`, `public/` が作成される
+    - `README.md` には元のマーメイドファイルの内容が含まれる
+
+- app.js を実行
+  - `$ cd api`
+  - `$ npm install`
+  - `$ npm start`
+
+- ブラウザで実行
+  - `http://localhost:8081/_doc`
+
+- 必要に応じて生成されたファイル（`app.js`, `/api/db.js`, `/public/swagger.yaml`）をカスタマイズ
+
+- 一度生成したファイルをリセットして、生成前の状態に戻すには `$ npm run reset-api` を実行
 
 
 ## Parameters
+
+### Parameters for web-app
 
 実行時に以下の**環境変数**を指定する：
 
@@ -79,6 +103,20 @@
 また、**生成されたアプリケーションの実行時**に以下の**環境変数**を指定する：
 
 - `PORT`: ウェブアプリケーションの待ち受けポート番号（デフォルト＝8080）
+
+
+### Parameters for api
+
+実行時に以下の**環境変数**を指定する：
+
+- `MERMAID`: マーメイドファイル名（必須）
+
+- `DATABASE_URL`: データベース URL（デフォルト＝''(メモリDB)）
+
+
+また、**生成されたアプリケーションの実行時**に以下の**環境変数**を指定する：
+
+- `PORT`: API アプリケーションの待ち受けポート番号（デフォルト＝8081）
 
 
 ## Customize
