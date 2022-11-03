@@ -1,4 +1,4 @@
-//. main.js
+//. web.js
 var fs = require( 'fs' );
 
 //. 環境変数

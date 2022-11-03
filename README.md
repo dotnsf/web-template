@@ -47,8 +47,8 @@
     - 例えば上の例だと、ノードの一覧という意味では最下行は不要（Top も Login も登場済み）
     - でも Login へ向かうパスがないため Login ページを表示するためのパスが未定義。そのため最下行を追加する必要がある
 
-- フローファイルを指定して main.js を実行
-  - `$ MERMAID=mermaid_sample.md node main`
+- フローファイルを指定して web.js を実行
+  - `$ MERMAID=mermaid_sample.md node web`
   - `web/` フォルダ内に `app.js`, `.gitignore`, `package.json`, `README.md`, `views/`, `public/` が作成される
     - `README.md` には元のマーメイドファイルの内容が含まれる
 
@@ -80,6 +80,78 @@
 
 - `PORT`: ウェブアプリケーションの待ち受けポート番号（デフォルト＝8080）
 
+
+## Customize
+
+以下の手順でテンプレートをカスタマイズし、自分でデザインできる。以下、`bootstrap` テンプレートをベースに `mytemplate` という名前でカスタマイズする例を紹介する：
+
+- `./templates/views/` 以下のフォルダをコピーする：
+
+  - `$ cd templates/views`
+
+  - `$ cp -r bootstrap/ mytemplate/`
+
+- `./templates/js/_main.js` をコピーする：
+
+  - `$ cd ../js`
+
+  - `$ cp _main.js _mytemplate.js`
+
+- `./templates/css/_main.css` をコピーする：
+
+  - `$ cd ../css`
+
+  - `$ cp _main.css _mytemplate.css`
+
+  - `$ cd ../..`
+
+- コピーしたファイルをカスタマイズする。ファイルの主な用途は以下の通り：
+
+  - `./templates/js/_mytemplate.js`
+  
+    - 全ページから参照される JavaScript ファイル
+
+  - `./templates/css/_mytemplate.css`
+  
+    - 全ページから参照される CSS ファイル。全ページで使う CSS を定義する
+
+  - `./templates/views/mytemplate/`
+  
+    - BootStrap ベースの Web テンプレート(EJS)
+
+    - それぞれのファイルの要素は以下の通り：
+
+      - `_detail.ejs` : （一覧ページで１件クリックした時の）詳細ページ
+
+      - `_else.ejs` : トップページ、一覧ページ、詳細ページのいずれでもないページ
+
+      - `_footer.ejs` : 共通フッター。Google Analytics を使う場合はここに記載するのがよい
+
+      - `_header.ejs` : 共通ヘッダー。UI はなく、共通で読み込むライブラリをここに記載する。またこのファイル内の `_main..js`, `_main.css` をそれぞれ `_mytemplate.js`, `_mytemplate.css` に書き換えておく
+
+      - `_index.ejs` : トップページ
+
+      - `_links.ejs` : あるページから別のページへのリンクがある場合、その各ページへのリンクボタンを表示する EJS
+
+      - `_list.ejs` : （詳細ページの遷移元となる）一覧ページ
+
+      - `_navi.ejs` : 共通ナビゲーション部分の EJS
+
+      - `_mytemplate.js` : _header.ejs から全ページ向けに読み込まれる JavaScript ファイル
+
+      - `_mytemplate.css` : _header.ejs から全ページ向けに読み込まれる CSS ファイル
+
+- カスタマイズ後に以下を（`BASE` に `mytemplate` を指定して）実行する：
+
+  - `$ MERMAID=mermaid_sample.md BASE=mytemplate node web`
+
+  - `$ cd web`
+
+  - `$ npm install`
+
+  - `$ npm start`
+
+  - :
 
 
 ## Licensing
