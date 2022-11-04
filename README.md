@@ -87,6 +87,19 @@
 - 一度生成したファイルをリセットして、生成前の状態に戻すには `$ npm run reset-api` を実行
 
 
+### Preview mermaid-file
+
+- 付属のマーメイドビューワでマーメイドファイルをプレビューする
+
+  - （`web-template` のフォルダをターミナルで開く）
+
+  - `$ npm install`
+
+  - `$ MERMAID=mermaid_sample.md node preview`
+
+  - ブラウザで `http://localhost:8000` を開いてプレビューする
+
+
 ## Parameters
 
 ### Parameters for web-app

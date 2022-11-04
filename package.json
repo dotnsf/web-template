@@ -8,6 +8,8 @@
         "reset": "rm -rf web/.gitignore web/* web/views web/public web/node_modules api/.gitignore api/* api/public api/node_modules"
     },
     "dependencies": {
+        "ejs": "^3.1.8",
+        "express": "^4.18.2"
     },
     "repository": {},
     "engines": {
