@@ -115,7 +115,7 @@ class __common{
       }
 
       route += "  var _records = " + this.stringifyArray( list ) + ";\n\n"
-        + '  res.render( "' + _names + '", { _title: "' + _title + '", _name: "' + _names + '", _records: _records, _links: ' + this.stringifyArray( _links ) + ', _appname: "' + appname + '" } );\n'
+        + '  res.render( "' + _names + '", { _title: "' + _title + '", _name: "' + _names + '", _records: _records, _links: ' + this.stringifyArray( _links ) + ', _appname: appname } );\n'
         + '});\n\n';
     }else if( path.endsWith( '/:id' ) ){
       //. 詳細ページ
@@ -125,16 +125,16 @@ class __common{
 
       route += "  var _id = req.params.id;\n"
         + "  var _record = " + JSON.stringify( _record ) + ";\n\n"
-        + '  res.render( "' + _name + '", { _id: _id, _title: "' + _title + '", _name: "' + _name + '", _record : _record, _links: ' + this.stringifyArray( _links ) + ', _appname: "' + appname + '" } );\n'
+        + '  res.render( "' + _name + '", { _id: _id, _title: "' + _title + '", _name: "' + _name + '", _record : _record, _links: ' + this.stringifyArray( _links ) + ', _appname: appname } );\n'
         + "});\n\n";
     }else if( path == '/' ){
       //. トップページ
-      route += '  res.render( "index", { _title: "' + _title + '", _name: "index", _links: ' + this.stringifyArray( _links ) + ', _appname: "' + appname + '" } );\n'
+      route += '  res.render( "index", { _title: "' + _title + '", _name: "index", _links: ' + this.stringifyArray( _links ) + ', _appname: appname } );\n'
         + "});\n\n";
     }else{
       //. それ以外のページ
       var _name = path.substring( 1, path.length );
-      route += '  res.render( "' + _name + '", { _title: "' + _title + '", _name: "' + _name + '", _links: ' + this.stringifyArray( _links ) + ', _appname: "' + appname + '" } );\n'
+      route += '  res.render( "' + _name + '", { _title: "' + _title + '", _name: "' + _name + '", _links: ' + this.stringifyArray( _links ) + ', _appname: appname } );\n'
         + "});\n\n";
     }
 
