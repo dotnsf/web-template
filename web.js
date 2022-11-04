@@ -144,8 +144,9 @@ ignoreException( fs.copyFileSync( './templates/views/' + base + '/_navi.ejs', we
 ignoreException( fs.copyFileSync( './templates/views/' + base + '/_links.ejs', web + '/views/links.ejs' ) );
 
 //. static files
-ignoreException( fs.copyFileSync( './templates/js/template.js', web + '/public/js/_main.js' ) );
-ignoreException( fs.copyFileSync( './templates/css/template.css', web + '/public/css/_main.css' ) );
+ignoreException( fs.copyFileSync( './templates/js/_main.js', web + '/public/js/_main.js' ) );
+ignoreException( fs.copyFileSync( './templates/js/_api.js', web + '/public/js/_api.js' ) );
+ignoreException( fs.copyFileSync( './templates/css/_main.css', web + '/public/css/_main.css' ) );
 ignoreException( fs.copyFileSync( './templates/img/icon.png', web + '/public/img/icon.png' ) );
 
 //. web package
