@@ -77,6 +77,23 @@ for( var i = 0; i < common.nodes.length; i ++ ){
   var view = common.generateView( path, is_list, base );
 }
 
+//. #11
+var _samples = [ 
+  { path: '_sample_login', title: 'ログイン' }, 
+  { path: '_sample_parts', title: 'パーツ' }, 
+  { path: '_sample_framework_parts', title: 'フレームワークパーツ' } 
+];
+for( var i = 0; i < _samples.length; i ++ ){
+  app += "\napp.get( '/" + _samples[i].path + "', function( req, res ){\n"
+    + '  res.render( "' + _samples[i].path + '", { _appname: "' + appname + '", _title: "' + _samples[i].title + '", _name: "' + _samples[i].path + '" } );\n'
+    + "});\n\n";
+
+  common.ignoreException( fs.copyFileSync( './templates/views/' + base + '/' + _samples[i].path + '.ejs', out + '/views/' + _samples[i].path + '.ejs' ) );
+  common.ignoreException( fs.copyFileSync( './templates/js/template.js', out + '/public/js/' + _samples[i].path + '.js' ) );
+  common.ignoreException( fs.copyFileSync( './templates/css/template.css', out + '/public/css/' + _samples[i].path + '.css' ) );
+}
+
+
 app += "\nvar port = process.env.PORT || 8080;\n"
   + "app.listen( port );\n"
   + "console.log( 'server starting on ' + port + ' ...' );\n\n";
